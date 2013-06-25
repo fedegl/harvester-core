@@ -1,7 +1,6 @@
 require 'active_support/all'
 require 'active_model'
 require 'nokogiri'
-require 'oai'
 require 'rest_client'
 require 'jsonpath'
 require 'chronic'
@@ -24,11 +23,8 @@ require "harvester_core/resource"
 require "harvester_core/source_wrap"
 require "harvester_core/loader"
 
-require "harvester_core/oai"
-require "harvester_core/rss"
 require "harvester_core/xml"
 require "harvester_core/json"
-require "harvester_core/tapuhi"
 
 module HarvesterCore
   # Your code goes here...
@@ -36,6 +32,7 @@ module HarvesterCore
   class << self
     attr_accessor :caching_enabled
     attr_accessor :parser_base_path
+    attr_accessor :redis_available
 
     def redis
       @redis ||= Redis.new

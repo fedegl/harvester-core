@@ -98,12 +98,6 @@ describe HarvesterCore::Enrichment do
       enrichment.resource
     end
 
-    it "should initialize a file resource object" do
-      enrichment = klass.new(:ndha_rights, Proc.new { url "http://goo.gle/1"; format "file" }, record, TestParser)
-      HarvesterCore::FileResource.should_receive(:new).with("http://goo.gle/1", {})
-      enrichment.resource
-    end
-
     it "should return a resource object" do
       enrichment.resource.should be_a HarvesterCore::Resource
     end

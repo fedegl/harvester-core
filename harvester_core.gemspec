@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = HarvesterCore::VERSION
   gem.authors       = ["Federico Gonzalez"]
   gem.email         = ["fedegl@gmail.com"]
-  gem.description   = %q{DNZ Harvester project which provides a DSL to harvest records of different sources}
-  gem.summary       = %q{DNZ Harvester project which provides a DSL to harvest records of different sources}
+  gem.description   = %q{DSL to scrape websites}
+  gem.summary       = %q{DSL to scrape websites}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
@@ -26,8 +26,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "jsonpath",        "~> 0.5.0"
   gem.add_runtime_dependency "chronic",         "~> 0.8.0"
   gem.add_runtime_dependency "tzinfo"
-  gem.add_runtime_dependency "dimensions"
-  gem.add_runtime_dependency "mimemagic"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec",      "~> 2.11.0"

@@ -28,8 +28,10 @@ module HarvesterCore
     end
 
     def get
-      sleep(seconds_to_wait)
-      self.last_request_at = Time.now
+      if HarvesterCore.redis_available
+        sleep(seconds_to_wait)
+        self.last_request_at = Time.now
+      end
       self.request_resource
     end
 

@@ -9,6 +9,10 @@ describe HarvesterCore::Request do
     RestClient.stub(:get) { "body" }
   end
 
+  after(:each) do
+    HarvesterCore.redis_available = false
+  end
+
   describe ".get" do
     before(:each) do
       klass.stub(:new) { request }
@@ -62,12 +66,16 @@ describe HarvesterCore::Request do
     end
 
     it "sleeps until the delay has passed" do
+      HarvesterCore.redis_available = true
       request.stub(:seconds_to_wait) { 1 }
+      request.stub(:last_request_at=).with(Time.now)
       request.should_receive(:sleep).with(1)
       request.get
     end
 
     it "should set the last_request_at" do
+      HarvesterCore.redis_available = true
+      request.stub(:seconds_to_wait) { 1 }
       request.should_receive("last_request_at=").with(time)
       request.get
     end
