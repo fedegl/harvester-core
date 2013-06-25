@@ -33,6 +33,10 @@ module HarvesterCore
       end
     end
 
+    def [](index)
+      original_value[index]
+    end
+
     alias_method  :include?, :includes?
 
     def find_with(regexp)

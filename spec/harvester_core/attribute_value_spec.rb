@@ -84,5 +84,13 @@ describe HarvesterCore::AttributeValue do
       end
     end
   end
+
+  describe "#[]" do
+    let(:value) { klass.new([0,1,2,3]) }
+
+    it "returns the third value in the original array" do
+      value[2].should eq 2
+    end
+  end
   
 end
