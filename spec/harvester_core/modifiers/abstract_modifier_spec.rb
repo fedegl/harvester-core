@@ -13,7 +13,7 @@ describe HarvesterCore::Modifiers::AbstractModifier do
   describe "#value" do
     it "initializes a new AttributeValue object" do
       modifier.stub(:modify) { "New Value" }
-      HarvesterCore::AttributeValue.should_receive(:new).with("New Value") { mock(:attr_value) }
+      HarvesterCore::AttributeValue.should_receive(:new).with("New Value") { double(:attr_value) }
       modifier.value
     end
   end

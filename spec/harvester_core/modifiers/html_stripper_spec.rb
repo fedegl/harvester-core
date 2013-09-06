@@ -20,7 +20,7 @@ describe HarvesterCore::Modifiers::HtmlStripper do
     end
 
     it "doens't try to strip_html from non strings" do
-      node = mock(:node)
+      node = double(:node)
       stripper.stub(:original_value) { [node] }
       stripper.modify.should eq [node]
     end

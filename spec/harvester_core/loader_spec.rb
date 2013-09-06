@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe HarvesterCore::Loader do
 
-  let(:parser) { mock(:parser, strategy: "json", name: "Europeana", content: "class Europeana < HarvesterCore::Json::Base; end", file_name: "europeana.rb") }
+  let(:parser) { double(:parser, strategy: "json", name: "Europeana", content: "class Europeana < HarvesterCore::Json::Base; end", file_name: "europeana.rb") }
   let(:loader) { HarvesterCore::Loader.new(parser) }
 
   before(:each) do

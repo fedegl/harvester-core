@@ -3,10 +3,10 @@ require "spec_helper"
 describe HarvesterCore::AttributeBuilder do
 
   let(:klass) { HarvesterCore::AttributeBuilder }
-  let(:record) { mock(:record).as_null_object }
+  let(:record) { double(:record).as_null_object }
   
   describe "#attribute_value" do
-    let(:option_object) { mock(:option, value: "Google") }
+    let(:option_object) { double(:option, value: "Google") }
 
     it "returns the default value" do
       builder = klass.new(record, :category, {default: "Google"})

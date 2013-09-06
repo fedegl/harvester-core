@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe HarvesterCore::ConditionalOption do
   
-  let(:document) { mock(:document) }
+  let(:document) { double(:document) }
   let(:options) { {xpath: "table/tr", if: {"td[1]" => "dc.identifier.citation"}, value: "td[2]"} }
   let(:co) { HarvesterCore::ConditionalOption.new(document, options) }
 
@@ -19,17 +19,17 @@ describe HarvesterCore::ConditionalOption do
   end
 
   describe "#matching_node" do
-    let(:container_node) { mock(:node) }
+    let(:container_node) { double(:node) }
 
     it "returns the node that matches the conditions" do
-      end_node = mock(:node, text: "dc.identifier.citation")
+      end_node = double(:node, text: "dc.identifier.citation")
       container_node.should_receive(:xpath).with("td[1]") { end_node }
       co.stub(:nodes) { [container_node] }
       co.matching_node.should eq container_node
     end
 
     it "returns nil when it doesn't match any node" do
-      end_node = mock(:node, text: "dc.language")
+      end_node = double(:node, text: "dc.language")
       container_node.should_receive(:xpath).with("td[1]") { end_node }
       co.stub(:nodes) { [container_node] }
       co.matching_node.should be_nil
@@ -37,11 +37,11 @@ describe HarvesterCore::ConditionalOption do
   end
 
   describe "#value" do
-    let(:container_node) { mock(:node) }
-    let(:end_node) { mock(:node, text: "Thesis") }
+    let(:container_node) { double(:node) }
+    let(:end_node) { double(:node, text: "Thesis") }
 
     it "finds the node with the specified xpath and extracts the text" do
-      end_node = mock(:node, text: "Thesis")
+      end_node = double(:node, text: "Thesis")
       container_node.stub(:xpath).with("td[2]") { end_node }
       co.stub(:matching_node) { container_node }
       co.value.should eq "Thesis"

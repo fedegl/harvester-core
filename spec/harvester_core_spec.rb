@@ -3,7 +3,7 @@ require "spec_helper"
 describe HarvesterCore do
   
   describe ".redis" do
-    let(:connection) { mock(:redis) }
+    let(:connection) { double(:redis) }
 
     before(:each) do
       HarvesterCore.instance_variable_set("@redis", nil)

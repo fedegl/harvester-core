@@ -3,7 +3,7 @@ require "spec_helper"
 describe HarvesterCore::Xml::Base do
   
   let(:klass) { HarvesterCore::Xml::Base }
-  let(:document) { mock(:document) }
+  let(:document) { double(:document) }
 
   after do
     klass.clear_definitions
@@ -183,7 +183,7 @@ describe HarvesterCore::Xml::Base do
     end
 
     it "initializes a xml record" do
-      node = mock(:node, to_xml: "<record></record>")
+      node = double(:node, to_xml: "<record></record>")
       record = klass.new(node)
       record.document.should eq node
     end
@@ -241,7 +241,7 @@ describe HarvesterCore::Xml::Base do
       klass.any_instance.stub(:set_attribute_values) { nil }
     end
 
-    let(:document) { mock(:document) }
+    let(:document) { double(:document) }
     let(:record) { klass.new("http://google.com") }
 
     context "format is XML" do

@@ -8,7 +8,7 @@ describe HarvesterCore::Enrichment do
 
   let(:klass) { HarvesterCore::Enrichment }
   let(:block) { Proc.new {} }
-  let(:record) { mock(:record, attributes: {}) }
+  let(:record) { double(:record, attributes: {}) }
   let(:enrichment) { klass.new(:ndha_rights, block, record, TestParser) }
   
   describe "#initialize" do
@@ -75,7 +75,7 @@ describe HarvesterCore::Enrichment do
     end
 
     it "should evaluate the get and then the URL" do
-      enrichment = klass.new(:rights, Proc.new { url "http://google.com/#{record.dc_identifier}" }, mock(:record, dc_identifier: "1.jpg"), TestParser)
+      enrichment = klass.new(:rights, Proc.new { url "http://google.com/#{record.dc_identifier}" }, double(:record, dc_identifier: "1.jpg"), TestParser)
       enrichment._url.should eq "http://google.com/1.jpg"
     end
   end
@@ -84,7 +84,7 @@ describe HarvesterCore::Enrichment do
     let!(:enrichment) { klass.new(:ndha_rights, Proc.new { url "http://goo.gle/1"; format "xml" }, record, TestParser) }
 
     before do
-      record.stub(:class) { mock(:class, :_throttle => {}) }
+      record.stub(:class) { double(:class, :_throttle => {}) }
     end
 
     it "should initialize a xml resource object" do
@@ -110,7 +110,7 @@ describe HarvesterCore::Enrichment do
   end
 
   describe "#primary" do
-    let(:source) { mock(:source).as_null_object }
+    let(:source) { double(:source).as_null_object }
 
     before do
       record.stub_chain(:sources, :where).with(priority: 0) { [source] }

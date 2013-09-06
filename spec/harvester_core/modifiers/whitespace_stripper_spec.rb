@@ -12,7 +12,7 @@ describe HarvesterCore::Modifiers::WhitespaceStripper do
   end
 
   describe "#modify" do
-    let(:node) { mock(:node) }
+    let(:node) { double(:node) }
 
     it "returns a stripped array of values" do
       whitespace.stub(:original_value) { [" Dogs ", " cats "] }

@@ -33,7 +33,7 @@ describe HarvesterCore::XmlMethods do
   
   describe "#node" do
     let(:document) { Nokogiri::XML::Document.new }
-    let(:xml_nodes) { mock(:xml_nodes) }
+    let(:xml_nodes) { double(:xml_nodes) }
 
     before { record.stub(:document) { document } }
 

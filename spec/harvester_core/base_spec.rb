@@ -164,7 +164,7 @@ describe HarvesterCore::Base do
 
     it "adds errors to field_errors" do
       klass.attribute :date, default: "1999/1/1", date: true
-      HarvesterCore::AttributeBuilder.stub(:new).with(record, :date, {default: "1999/1/1", date: true}) { mock(:builder, errors: ["Error"]).as_null_object }
+      HarvesterCore::AttributeBuilder.stub(:new).with(record, :date, {default: "1999/1/1", date: true}) { double(:builder, errors: ["Error"]).as_null_object }
       record.set_attribute_values
       record.attributes.should include(date: nil)
       record.field_errors.should include(date: ["Error"])

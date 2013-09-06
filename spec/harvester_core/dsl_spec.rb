@@ -37,7 +37,7 @@ describe HarvesterCore::DSL do
   end
 
   describe ".paginate" do
-    let(:pagination) { mock(:pagination) }
+    let(:pagination) { double(:pagination) }
     let(:options) { {page_parameter: "start-index", type: "item", per_page_parameter: "max-results", per_page: 50, page: 1} }
 
     it "initializes a pagination object" do

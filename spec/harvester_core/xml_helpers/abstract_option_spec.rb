@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe HarvesterCore::AbstractOption do
   
-  let(:document) { mock(:document) }
+  let(:document) { double(:document) }
   let(:options) { {xpath: "//table/tr"} }
   let(:ao) { HarvesterCore::AbstractOption.new(document, options) }
 
@@ -14,7 +14,7 @@ describe HarvesterCore::AbstractOption do
   end
 
   describe "#nodes" do
-    let(:node) { mock(:node) }
+    let(:node) { double(:node) }
 
     it "finds the nodes specified by the xpath string" do
       document.should_receive(:xpath).with("//table/tr", nil).and_return([node])

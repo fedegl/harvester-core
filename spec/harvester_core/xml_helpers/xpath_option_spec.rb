@@ -7,7 +7,7 @@ describe HarvesterCore::XpathOption do
   let(:xo) { HarvesterCore::XpathOption.new(document, options) }
 
   describe "#value" do
-    let(:nodes) { mock(:nodes, text: "Value") }
+    let(:nodes) { double(:nodes, text: "Value") }
     before { xo.stub(:nodes) { nodes } }
 
     it "returns the text from the nodes" do
@@ -15,7 +15,7 @@ describe HarvesterCore::XpathOption do
     end
 
     it "returns the text from a array of NodeSets" do
-      xo.stub(:nodes) { [mock(:node_set, text: "Value")] }
+      xo.stub(:nodes) { [double(:node_set, text: "Value")] }
       xo.value.should eq ["Value"]
     end
 
