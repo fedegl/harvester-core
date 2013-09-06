@@ -10,6 +10,7 @@ module HarvesterCore
       class_attribute :_record_format
       class_attribute :_sitemap_format
       class_attribute :_total_results
+      class_attribute :_remove_namespaces
 
       self._sitemap_format = :html
 
@@ -72,6 +73,10 @@ module HarvesterCore
 
         def sitemap?
           self._record_url_selector.present?
+        end
+
+        def remove_namespaces(flag=false)
+          self._remove_namespaces = flag
         end
 
         def index_document(url=nil)
@@ -142,7 +147,9 @@ module HarvesterCore
           if format == :html
             Nokogiri::HTML.parse(response)
           else
-            Nokogiri::XML.parse(response)
+            doc = Nokogiri::XML.parse(response)
+            doc.remove_namespaces! if self.class._remove_namespaces == true
+            doc
           end
         end
       end
