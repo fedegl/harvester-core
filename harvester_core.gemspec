@@ -17,8 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_runtime_dependency "activesupport",   "~> 3.2"
-  gem.add_runtime_dependency "actionpack",      "~> 3.2"
+  gem.add_runtime_dependency "activesupport",   ">= 3.2"
+  gem.add_runtime_dependency "actionpack",      ">= 3.2"
   gem.add_runtime_dependency "redis",           "~> 3"
 
   gem.add_runtime_dependency "nokogiri"
