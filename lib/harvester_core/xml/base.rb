@@ -8,6 +8,7 @@ module HarvesterCore
       class_attribute :_record_url_selector
       class_attribute :_record_selector
       class_attribute :_record_format
+      class_attribute :_index_format
       class_attribute :_sitemap_format
       class_attribute :_total_results
       class_attribute :_remove_namespaces
@@ -58,6 +59,10 @@ module HarvesterCore
           self._record_format = format.to_sym
         end
 
+        def index_format(format)
+          self._index_format = format.to_sym
+        end
+
         def record_selector(xpath)
           self._record_selector = xpath
         end
@@ -67,8 +72,12 @@ module HarvesterCore
         end
 
         def sitemap_format_class
-          return Nokogiri::HTML unless [:xml, :html].include?(self._sitemap_format)
-          "Nokogiri::#{self._sitemap_format.to_s.upcase}".constantize
+          determine_format_class(self._sitemap_format, :html)
+        end
+
+        def determine_format_class(format, fallback=:html)
+          format = fallback unless [:xml, :html].include?(format)
+          "Nokogiri::#{format.to_s.upcase}".constantize
         end
 
         def sitemap?
@@ -81,7 +90,7 @@ module HarvesterCore
 
         def index_document(url=nil)
           xml = HarvesterCore::Utils.remove_default_namespace(self.index_xml(url))
-          doc = Nokogiri::XML.parse(xml)
+          doc = determine_format_class(self._index_format, :xml).parse(xml)
           if pagination_options
             self._total_results ||= doc.xpath(self.pagination_options[:total_selector]).text.to_i
           end

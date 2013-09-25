@@ -58,6 +58,24 @@ describe HarvesterCore::Xml::Base do
     end
   end
 
+  describe ".determine_format_class" do
+    it "should return the Nokogiri::XML class" do
+      klass.determine_format_class(:xml).should eq Nokogiri::XML
+    end
+
+    it "should return the Nokogiri::HTML class" do
+      klass.determine_format_class(:html).should eq Nokogiri::HTML
+    end
+
+    it "should fallback to Nokogiri::XML when the format is invalid" do
+      klass.determine_format_class(:json, :xml).should eq Nokogiri::XML
+    end
+
+    it "should fallback to Nokogiri::HTML when the format is invalid" do
+      klass.determine_format_class(:json, :html).should eq Nokogiri::HTML
+    end
+  end
+
   describe ".sitemap?" do
     it "returns true" do
       klass._record_selector = nil
@@ -78,6 +96,13 @@ describe HarvesterCore::Xml::Base do
     it "reads the raw xml and created a nokogiri document" do
       klass.stub(:index_xml) { "Some xml" }
       Nokogiri::XML.should_receive(:parse).with("Some xml") { document }
+      klass.index_document
+    end
+
+    it "parses the index document with the correct format" do
+      klass.index_format :html
+      klass.stub(:index_xml) { "Some HTML" }
+      Nokogiri::HTML.should_receive(:parse).with("Some HTML") { document }
       klass.index_document
     end
   end
