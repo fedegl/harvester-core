@@ -75,6 +75,7 @@ module HarvesterCore
         self._basic_auth[self.identifier] = nil
         self._pagination_options[self.identifier] = nil
         self._rejection_rules[self.identifier] = nil
+        self._single_attribute_value = nil
       end
 
       def include_snippet(name)
@@ -100,6 +101,8 @@ module HarvesterCore
 
       begin
         self.class.attribute_definitions.each do |name, options|
+          options = options.reverse_merge(single_value: self.class._single_attribute_value) unless self.class._single_attribute_value.nil?
+
           builder = AttributeBuilder.new(self, name, options)
           value = builder.value
           @attributes[name] ||= nil

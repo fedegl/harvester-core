@@ -128,4 +128,11 @@ describe HarvesterCore::DSL do
       klass._throttle.should eq [{:host => "www.google.com", :max_per_minute => 100}, {:host => "www.yahoo.com", :max_per_minute => 100}]
     end
   end
+
+  describe ".single_attribute_value" do
+    it "stores the user preference for the attribute values" do
+      klass.single_attribute_value true
+      klass._single_attribute_value.should eq true
+    end
+  end
 end

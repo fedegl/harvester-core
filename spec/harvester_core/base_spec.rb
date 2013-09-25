@@ -176,6 +176,20 @@ describe HarvesterCore::Base do
       record.set_attribute_values
       record.request_error.should include({message: "Hi"})
     end
+
+    it "should merge the single_attribute_value in the options" do
+      klass.single_attribute_value true
+      klass.attribute :mls_id
+      HarvesterCore::AttributeBuilder.should_receive(:new).with(record, :mls_id, {single_value: true})
+      record.set_attribute_values
+    end
+
+    it "should not override the single_value option in a attribute" do
+      klass.single_attribute_value true
+      klass.attribute :mls_id, single_value: false
+      HarvesterCore::AttributeBuilder.should_receive(:new).with(record, :mls_id, {single_value: false})
+      record.set_attribute_values
+    end
   end
 
   describe "#attribute_names" do

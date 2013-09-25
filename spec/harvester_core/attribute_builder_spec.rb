@@ -73,6 +73,12 @@ describe HarvesterCore::AttributeBuilder do
       builder.stub(:attribute_value) { "\nMLS #: 81300818" }
       builder.transform.should eq ["81300818"]
     end
+
+    it "returns a single value" do
+      builder = klass.new(record, :category, {single_value: true})
+      builder.stub(:attribute_value) { ["Images"] }
+      builder.transform.should eq "Images"
+    end
   end
 
   describe "#value" do

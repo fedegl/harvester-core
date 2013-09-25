@@ -12,6 +12,7 @@ module HarvesterCore
       class_attribute :_rejection_rules
       class_attribute :_throttle
       class_attribute :_environment
+      class_attribute :_single_attribute_value
 
       self._source_id = {}
       self._base_urls = {}
@@ -72,6 +73,10 @@ module HarvesterCore
       def throttle(options={})
         self._throttle ||= []
         self._throttle << options
+      end
+
+      def single_attribute_value(boolean)
+        self._single_attribute_value = boolean
       end
     end
   end

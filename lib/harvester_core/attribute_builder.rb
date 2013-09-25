@@ -21,7 +21,9 @@ module HarvesterCore
       value = strip_whitespace_option(value)
       value = truncate_option(value, options[:truncate]) if options[:truncate]
       value = parse_date_option(value, options[:date]) if options[:date]
-      value.uniq
+      value = value.uniq
+      value = value.first if options[:single_value] == true
+      value
     end
 
     def attribute_value
