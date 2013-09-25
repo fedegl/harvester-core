@@ -16,6 +16,7 @@ module HarvesterCore
       value = mapping_option(value, options[:mappings]) if options[:mappings]
       value = split_option(value, options[:separator]) if options[:separator]
       value = join_option(value, options[:join]) if options[:join]
+      value = extract_option(value, options[:extract]) if options[:extract]
       value = strip_html_option(value)
       value = strip_whitespace_option(value)
       value = truncate_option(value, options[:truncate]) if options[:truncate]
@@ -59,6 +60,10 @@ module HarvesterCore
 
     def join_option(original_value, joiner)
       HarvesterCore::Modifiers::Joiner.new(original_value, joiner).modify
+    end
+
+    def extract_option(original_value, regexp)
+      HarvesterCore::Modifiers::Extractor.new(original_value, regexp).modify
     end
 
     def strip_html_option(original_value)

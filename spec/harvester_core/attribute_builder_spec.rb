@@ -67,6 +67,12 @@ describe HarvesterCore::AttributeBuilder do
       builder.stub(:attribute_value) { ["Images", "Images", "Videos"] }
       builder.transform.should eq ["Images", "Videos"]
     end
+
+    it "extracts the value specified in the regexp" do
+      builder = klass.new(record, :mls_id, {extract: /MLS #: ([\d]+)/})
+      builder.stub(:attribute_value) { "\nMLS #: 81300818" }
+      builder.transform.should eq ["81300818"]
+    end
   end
 
   describe "#value" do
