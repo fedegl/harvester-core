@@ -136,11 +136,16 @@ module HarvesterCore
       end
 
       def url
-        if self.class.basic_auth_credentials
-          @url.gsub("http://", "http://#{self.class.basic_auth_credentials[:username]}:#{self.class.basic_auth_credentials[:password]}@")
-        else
-          @url
+        url = @url
+
+        uri = URI.parse(url)
+        unless uri.host
+          base_uri = URI.parse(self.class.base_urls.first)
+          url = [base_uri.scheme, "://", base_uri.host, uri.path].join
         end
+
+        url = @url.gsub("http://", "http://#{self.class.basic_auth_credentials[:username]}:#{self.class.basic_auth_credentials[:password]}@") if self.class.basic_auth_credentials
+        url
       end
 
       def document

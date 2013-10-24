@@ -247,6 +247,7 @@ describe HarvesterCore::Xml::Base do
   describe "#url" do
     before do
       klass.any_instance.stub(:set_attribute_values) { nil }
+      klass.base_url "http://www.google.com/listings.html"
     end
 
     let(:record) { klass.new("http://google.com") }
@@ -258,6 +259,14 @@ describe HarvesterCore::Xml::Base do
     it "returns the url with basic auth values" do
       klass.basic_auth "username", "password"
       record.url.should eq "http://username:password@google.com"
+    end
+
+    context "without a host" do
+      let(:record) { klass.new("/path.html") }
+
+      it "adds the host from the base_url" do
+        record.url.should eq "http://www.google.com/path.html"
+      end
     end
   end
 
