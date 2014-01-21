@@ -12,10 +12,10 @@ class JsonParser < HarvesterCore::Json::Base
     get(:landing_url).mapping(/.*record\/(\w+)\/(\w+).*/ => 'http://www.europeana.eu/portal/record/\1/\2')
   end
   attribute :thumbnail_url,           path: "enclosure"
-  attribute :creator,                 path: "dc:creator"
-  attribute :year,                    path: "europeana:year"
-  attribute :language,                path: "europeana:language"
-  attribute :dnz_type,                path: "europeana:type"
-  attribute :contributing_partner,    path: "europeana:dataProvider"
+  attribute :creator,                 path: "creator"
+  attribute :year,                    path: "year"
+  attribute :language,                path: "language"
+  attribute :dnz_type,                path: "type"
+  attribute :contributing_partner,    path: "dataProvider"
 
 end

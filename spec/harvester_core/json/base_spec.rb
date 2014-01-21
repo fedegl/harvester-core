@@ -90,18 +90,23 @@ describe HarvesterCore::Json::Base do
   end
 
   describe "#strategy_value" do
-    let(:record) { klass.new({"dc:creator" => "John", "dc:author" => "Fede"}) }
+    let(:record) { klass.new({"creator" => "John", "author" => "Fede"}) }
 
     it "returns the value of a attribute" do
-      record.strategy_value(path: "dc:creator").should eq "John"
+      record.strategy_value(path: "creator").should eq "John"
     end
 
     it "returns the values from multiple paths" do
-      record.strategy_value(path: ["dc:creator", "dc:author"]).should eq ["John", "Fede"]
+      record.strategy_value(path: ["creator", "author"]).should eq ["John", "Fede"]
     end
 
     it "returns nil without :path" do
       record.strategy_value(path: nil).should be_nil
+    end
+
+    it "returns a value from a nested path" do
+      record = klass.new({property: {bathrooms: 2, bedrooms: 1}}.to_json)
+      record.strategy_value(path: "property.bathrooms").should eq 2
     end
   end
 

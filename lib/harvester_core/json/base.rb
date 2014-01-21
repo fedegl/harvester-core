@@ -66,9 +66,11 @@ module HarvesterCore
         return nil unless path.present?
 
         if path.is_a?(Array)
-          path.map {|p| json_attributes[p] }
+          values = path.map {|p| JsonPath.on(full_raw_data, p) }
+          values.flatten.compact
         else
-          json_attributes[path]
+          value = JsonPath.on(full_raw_data, path)
+          value[0] if value
         end
       end
 
