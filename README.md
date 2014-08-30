@@ -1,8 +1,6 @@
 Harvester
 =========
 
-Prototype that showcases and demonstrates how the DigitalNZ harvester could be rewritten with a more flexible, easy to maintain and testable approach.
-
 ## Architecture
 
 It follows a very simple architecture where you have adapters or strategies for different types of harvests that abstract most of the complexity and let the harvest operator use a common language for defining how to extract the important data from every source.
